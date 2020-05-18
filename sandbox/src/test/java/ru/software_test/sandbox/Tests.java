@@ -3,7 +3,7 @@ package ru.software_test.sandbox;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class SquareTest {
+public class Tests {
     @Test
     public void testArea() {
         Square s = new Square(5);
