@@ -9,13 +9,12 @@ public class FirstProgram {
 
 
         Rectangle r = new Rectangle(2,3);
-        Point p1 = new Point(1,2);
-        Point p2 = new Point(4,5);
+        Point p = new Point(1,2,4,5);
 
         System.out.println("area of square with side " + s.l + " is " + s.area());
         System.out.println("area of rectangle with side A " + r.a + " and B " + r.b + " is " + r.area());
-        System.out.println("Distance between point A(" + p1.x +"/"+ p1.y +") and point B("+ p2.x +"/"+ p2.y + ") is "
-                + Point.distance(p1,p2));
+        System.out.println("Distance between point A(" + p.x1 +"/"+ p.y1 +") and point B("+ p.x2 +"/"+ p.y2 + ") is "
+                + p.distance());
 
     }
 
