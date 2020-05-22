@@ -1,20 +1,18 @@
-package ru.software_test.addressbook;
+package ru.software_test.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import ru.software_test.addressbook.model.GroupData;
 
 import java.util.concurrent.TimeUnit;
 
-public class TestBase {
+public class ApplicationManager {
     public WebDriver wd;
 
-    @BeforeMethod(alwaysRun = true)
-    public void setUp() throws Exception {
+    public void init() {
         wd = new FirefoxDriver();
         wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         login("admin", "secret");
@@ -58,10 +56,8 @@ public class TestBase {
         wd.findElement(By.linkText("groups")).click();
     }
 
-    @AfterMethod(alwaysRun = true)
-    public void tearDown() throws Exception {
+    public void stop() {
         wd.quit();
-
     }
 
     public boolean isElementPresent(By by) {
@@ -82,11 +78,11 @@ public class TestBase {
         }
     }
 
-    protected void deleteSeclectedGroups() {
+    public void deleteSeclectedGroups() {
         wd.findElement(By.xpath("(//input[@name='delete'])[2]")).click();
     }
 
-    protected void selectGroups() {
+    public void selectGroups() {
         wd.findElement(By.name("selected[]")).click();
     }
 }
