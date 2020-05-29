@@ -8,7 +8,7 @@ public class ContactModificationTest extends TestBase{
     public void testContactModification() throws Exception {
         if (! app.getContactHelper().contactExistanceChek()){
             app.getContactHelper().createContact(new ContactData("Joe", "Ivanovich", "Trump",
-                    "Missleaders","777"));
+                    "Missleaders","222"));
         }
         app.getContactHelper().chooseContact();
         app.getContactHelper().initContatctModification();

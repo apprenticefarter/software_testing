@@ -10,7 +10,7 @@ public class ContactDeleteTest extends TestBase {
         public void testContactDelete() throws Exception {
             if (! app.getContactHelper().contactExistanceChek()){
                 app.getContactHelper().createContact(new ContactData("Joe", "Ivanovich", "Trump",
-                        "Missleaders","777"));
+                        "Missleaders","222"));
             }
             app.getContactHelper().chooseContact();
             app.getContactHelper().initDelete();
