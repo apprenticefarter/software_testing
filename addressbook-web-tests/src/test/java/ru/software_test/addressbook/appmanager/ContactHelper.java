@@ -30,7 +30,7 @@ public class ContactHelper extends HelperBase {
         type(By.name("company"), contact.getCompany());
 
         if (creation) {
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contact.getGroup());
+            new Select(wd.findElement(By.name("new_group"))).getFirstSelectedOption();
         } else
             Assert.assertFalse(isElementPresent(By.name("new_group")));
 
@@ -78,7 +78,8 @@ public class ContactHelper extends HelperBase {
         List<WebElement> elements =  wd.findElements(By.xpath("//table[@id=\'maintable\']/tbody/tr"));
         for (int i = 2; i < elements.size() + 1; i++) {
             String name = wd.findElement(By.xpath("//table[@id=\'maintable\']/tbody/tr[" + i + "]/td[3]")).getText();
-            ContactData contact = new ContactData(name,null,null,null,null);
+            String lastname = wd.findElement(By.xpath("//table[@id=\'maintable\']/tbody/tr[" + i + "]/td[2]")).getText();
+            ContactData contact = new ContactData(name,null,lastname,null,null);
             contacts.add(contact);
         }
 
