@@ -2,9 +2,13 @@ package ru.software_test.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.software_test.addressbook.model.ContactData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends HelperBase {
     public ContactHelper(WebDriver wd) {
@@ -32,12 +36,13 @@ public class ContactHelper extends HelperBase {
 
     }
 
-    public void chooseContact() {
-        click(By.name("selected[]"));
+    public void chooseContact(int index) {
+        wd.findElements(By.name("selected[]")).get(index).click();
+
     }
 
-    public void initContatctModification() {
-        click(By.xpath("//img[@alt='Edit']"));
+    public void initContatctModification(int index) {
+        click(By.xpath("(//img[@alt='Edit'])["+ index +"]"));
 
     }
 
@@ -65,5 +70,18 @@ public class ContactHelper extends HelperBase {
 
     public boolean contactExistanceChek() {
         return isElementPresent(By.name("selected[]"));
+    }
+
+
+    public List<ContactData> getContactList() {
+        List<ContactData> contacts = new ArrayList<>();
+        List<WebElement> elements =  wd.findElements(By.xpath("//table[@id=\'maintable\']/tbody/tr"));
+        for (int i = 2; i < elements.size() + 1; i++) {
+            String name = wd.findElement(By.xpath("//table[@id=\'maintable\']/tbody/tr[" + i + "]/td[3]")).getText();
+            ContactData contact = new ContactData(name,null,null,null,null);
+            contacts.add(contact);
+        }
+
+        return contacts;
     }
 }
