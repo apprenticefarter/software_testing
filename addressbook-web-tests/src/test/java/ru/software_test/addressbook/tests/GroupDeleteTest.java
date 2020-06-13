@@ -1,6 +1,7 @@
 package ru.software_test.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.software_test.addressbook.model.GroupData;
 
@@ -8,12 +9,17 @@ import java.util.Comparator;
 import java.util.List;
 
 public class GroupDeleteTest extends TestBase {
-    @Test
-    public void testGroupDelete() throws Exception {
+    @BeforeMethod
+    public void preconditionCheck(){
         app.getNavigationHelper().gotoGroups();
         if (!app.getGroupHelper().groupExistanceCheck()) {
             app.getGroupHelper().createGroup(new GroupData("222", "hhh", "fff"));
         }
+
+    }
+    @Test
+    public void testGroupDelete() throws Exception {
+
         List<GroupData> before = app.getGroupHelper().getGroupList();
         app.getGroupHelper().selectGroups(before.size() - 1);
         app.getGroupHelper().deleteSeclectedGroups();

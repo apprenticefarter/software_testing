@@ -1,6 +1,7 @@
 package ru.software_test.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.software_test.addressbook.model.ContactData;
 import ru.software_test.addressbook.model.GroupData;
@@ -9,8 +10,8 @@ import java.util.Comparator;
 import java.util.List;
 
 public class ContactModificationTest extends TestBase {
-    @Test
-    public void testContactModification() throws Exception {
+    @BeforeMethod
+    public void preconditionCheck() {
         if (!app.getContactHelper().contactExistanceChek()) {
             if (!app.getGroupHelper().groupExistanceCheck()) {
                 app.getGroupHelper().createGroup(new GroupData("222", "hhh", "fff"));
@@ -18,6 +19,12 @@ public class ContactModificationTest extends TestBase {
             app.getContactHelper().createContact(new ContactData("Joe", "Ivanovich", "Trump",
                     "Missleaders", "222"));
         }
+
+    }
+
+    @Test
+    public void testContactModification() throws Exception {
+
 
         app.getContactHelper().returnHomePage();
         List<ContactData> before = app.getContactHelper().getContactList();
@@ -28,7 +35,7 @@ public class ContactModificationTest extends TestBase {
         app.getContactHelper().returnHomePage();
 
         List<ContactData> after = app.getContactHelper().getContactList();
-        before.remove(before.size() -1);
+        before.remove(before.size() - 1);
         before.add(new ContactData("Raul", null, "Edvard",
                 "skype", null));
         Comparator<? super ContactData> byName = (c1, c2) -> c1.getFisrtname().compareTo(c2.getFisrtname());

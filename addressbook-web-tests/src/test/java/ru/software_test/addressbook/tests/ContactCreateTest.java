@@ -1,6 +1,7 @@
 package ru.software_test.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.software_test.addressbook.model.ContactData;
 import ru.software_test.addressbook.model.GroupData;
@@ -9,13 +10,17 @@ import java.util.Comparator;
 import java.util.List;
 
 public class ContactCreateTest extends TestBase {
-
-    @Test
-    public void testContactCreate() throws Exception {
+    @BeforeMethod
+    public void preconditionCheck() {
         if (!app.getGroupHelper().groupExistanceCheck()) {
             app.getGroupHelper().createGroup(new GroupData("222", "hhh", "fff"));
             app.getNavigationHelper().gotoHomePage();
         }
+
+    }
+    @Test
+    public void testContactCreate() throws Exception {
+
         app.getNavigationHelper().gotoHomePage();
         List<ContactData> before = app.getContactHelper().getContactList();
         app.getContactHelper().initContactCreate();

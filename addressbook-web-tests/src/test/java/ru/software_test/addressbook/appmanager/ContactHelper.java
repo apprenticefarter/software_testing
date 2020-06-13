@@ -1,5 +1,6 @@
 package ru.software_test.addressbook.appmanager;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,6 +10,8 @@ import ru.software_test.addressbook.model.ContactData;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.testng.AssertJUnit.assertTrue;
 
 public class ContactHelper extends HelperBase {
     public ContactHelper(WebDriver wd) {
@@ -30,7 +33,7 @@ public class ContactHelper extends HelperBase {
         type(By.name("company"), contact.getCompany());
 
         if (creation) {
-            new Select(wd.findElement(By.name("new_group"))).getFirstSelectedOption();
+            new Select(wd.findElement(By.name("new_group"))).selectByIndex(1);
         } else
             Assert.assertFalse(isElementPresent(By.name("new_group")));
 
@@ -49,10 +52,17 @@ public class ContactHelper extends HelperBase {
     public void submitContactUpdate() {
         click(By.name("update"));
     }
+    private boolean acceptNextAlert = true;
 
     public void initDelete() {
+
+
+
         click(By.xpath("//input[@value='Delete']"));
-        wd.switchTo().alert().accept();
+        acceptNextAlert = true;
+        assertTrue(closeAlertAndGetItsText().matches("^Delete 1 addresses[\\s\\S]$"));
+
+        //wd.switchTo().alert().accept();
     }
 
     public void createContact(ContactData contact) {
@@ -84,5 +94,19 @@ public class ContactHelper extends HelperBase {
         }
 
         return contacts;
+    }
+    private String closeAlertAndGetItsText() {
+        try {
+            Alert alert = wd.switchTo().alert();
+            String alertText = alert.getText();
+            if (acceptNextAlert) {
+                alert.accept();
+            } else {
+                alert.dismiss();
+            }
+            return alertText;
+        } finally {
+            acceptNextAlert = true;
+        }
     }
 }
