@@ -1,7 +1,5 @@
 package ru.software_test.addressbook.tests;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -16,7 +14,7 @@ public class ContactDeleteTest extends TestBase {
     public void preconditionCheck() {
         if (!app.getContactHelper().contactExistanceChek()) {
             if (!app.getGroupHelper().groupExistanceCheck()) {
-                app.getGroupHelper().createGroup(new GroupData("222", "hhh", "fff"));
+                app.getGroupHelper().groupCreate(new GroupData("222", "hhh", "fff"));
             }
             app.getContactHelper().createContact(new ContactData("Joe", "Ivanovich", "Trump",
                     "Missleaders", "222"));

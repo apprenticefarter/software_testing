@@ -14,7 +14,7 @@ public class ContactModificationTest extends TestBase {
     public void preconditionCheck() {
         if (!app.getContactHelper().contactExistanceChek()) {
             if (!app.getGroupHelper().groupExistanceCheck()) {
-                app.getGroupHelper().createGroup(new GroupData("222", "hhh", "fff"));
+                app.getGroupHelper().groupCreate(new GroupData("222", "hhh", "fff"));
             }
             app.getContactHelper().createContact(new ContactData("Joe", "Ivanovich", "Trump",
                     "Missleaders", "222"));

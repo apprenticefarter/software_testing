@@ -1,7 +1,6 @@
 package ru.software_test.addressbook.tests;
 
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.software_test.addressbook.model.GroupData;
 
@@ -16,10 +15,7 @@ public class GroupCreateTest extends TestBase {
 
         app.getNavigationHelper().gotoGroups();
         List<GroupData> before = app.getGroupHelper().getGroupList();
-        app.getGroupHelper().initGroupCreate();
-        app.getGroupHelper().fillGroupForm(new GroupData("222", "hhh", "fff"));
-        app.getGroupHelper().submitGroupCreation();
-        app.getGroupHelper().returnToGroupPage();
+        app.getGroupHelper().groupCreate(new GroupData("222", "hhh", "fff"));
         List<GroupData> after = app.getGroupHelper().getGroupList();
 
         int maxid = after.stream().max((o1,o2) -> Integer.compare(o1.getId(),o2.getId())).get().getId();
@@ -27,6 +23,8 @@ public class GroupCreateTest extends TestBase {
         Assert.assertEquals(new HashSet<>(before),  new HashSet<>(after));
 
     }
+
+
 
 
 }

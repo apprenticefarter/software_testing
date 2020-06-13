@@ -14,7 +14,7 @@ public class GroupModificationTest extends TestBase {
         app.getNavigationHelper().gotoGroups();
 
         if (!app.getGroupHelper().groupExistanceCheck()) {
-            app.getGroupHelper().createGroup(new GroupData("222", "hhh", "fff"));
+            app.getGroupHelper().groupCreate(new GroupData("222", "hhh", "fff"));
         }
 
     }
@@ -23,14 +23,11 @@ public class GroupModificationTest extends TestBase {
     public void testGroupModification() {
 
         List<GroupData> before = app.getGroupHelper().getGroupList();
-        app.getGroupHelper().selectGroups(before.size() - 1);
-        app.getGroupHelper().initGroupeModification();
-        app.getGroupHelper().fillGroupForm(new GroupData("777", null, null));
-        app.getGroupHelper().submitGroupModification();
-        app.getGroupHelper().returnToGroupPage();
+        int index = before.size() - 1;
+        app.getGroupHelper().groupModify(index, new GroupData("777", null, null));
         List<GroupData> after = app.getGroupHelper().getGroupList();
-        int id = before.get(before.size() - 1).getId();
-        before.remove(before.size() - 1);
+        int id = before.get(index).getId();
+        before.remove(index);
         before.add(new GroupData(id, "777", null, null));
         Comparator<? super GroupData> byID = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
         before.sort(byID);
@@ -39,4 +36,6 @@ public class GroupModificationTest extends TestBase {
         Assert.assertEquals(before, after);
 
     }
+
+
 }

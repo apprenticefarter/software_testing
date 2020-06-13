@@ -13,7 +13,7 @@ public class GroupDeleteTest extends TestBase {
     public void preconditionCheck(){
         app.getNavigationHelper().gotoGroups();
         if (!app.getGroupHelper().groupExistanceCheck()) {
-            app.getGroupHelper().createGroup(new GroupData("222", "hhh", "fff"));
+            app.getGroupHelper().groupCreate(new GroupData("222", "hhh", "fff"));
         }
 
     }

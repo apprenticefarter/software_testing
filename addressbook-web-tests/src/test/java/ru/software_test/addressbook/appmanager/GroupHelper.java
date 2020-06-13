@@ -58,13 +58,18 @@ public class GroupHelper extends HelperBase {
         click(By.name("update"));
     }
 
-    public void createGroup(GroupData group) {
+    public void groupCreate(GroupData group) {
         initGroupCreate();
         fillGroupForm(group);
         submitGroupCreation();
         returnToGroupPage();
-
-
+    }
+    public void groupModify(int index, GroupData group) {
+        selectGroups(index);
+        initGroupeModification();
+        fillGroupForm(group);
+        submitGroupModification();
+        returnToGroupPage();
     }
     public void returnToGroupPage() {
         click(By.linkText("group page"));

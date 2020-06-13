@@ -13,7 +13,7 @@ public class ContactCreateTest extends TestBase {
     @BeforeMethod
     public void preconditionCheck() {
         if (!app.getGroupHelper().groupExistanceCheck()) {
-            app.getGroupHelper().createGroup(new GroupData("222", "hhh", "fff"));
+            app.getGroupHelper().groupCreate(new GroupData("222", "hhh", "fff"));
             app.getNavigationHelper().gotoHomePage();
         }
 
