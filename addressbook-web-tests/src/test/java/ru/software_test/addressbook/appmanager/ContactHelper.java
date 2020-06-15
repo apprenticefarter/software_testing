@@ -39,13 +39,19 @@ public class ContactHelper extends HelperBase {
 
     }
 
+    public void delete(int index) {
+        choose(index);
+        initDelete();
+
+    }
+
     public void choose(int index) {
         wd.findElements(By.name("selected[]")).get(index).click();
 
     }
 
     public void initModification(int index) {
-        click(By.xpath("(//img[@alt='Edit'])["+ index +"]"));
+        click(By.xpath("(//img[@alt='Edit'])[" + index + "]"));
 
     }
 
@@ -54,10 +60,10 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.cssSelector("div.msgbox"));
 
     }
+
     private boolean acceptNextAlert = true;
 
     public void initDelete() {
-
 
 
         click(By.xpath("//input[@value='Delete']"));
@@ -66,17 +72,23 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.cssSelector("div.msgbox"));
         //wd.switchTo().alert().accept();
     }
-    public void delete(List<ContactData> before) {
-        choose(before.size() - 1);
-        initDelete();
+
+
+    public void modify(int index) {
+        initModification(index);
+        fillForm(new ContactData("Raul", null, "Edvard",
+                "skype", null), false);
+        submitUpdate();
         returnHomePage();
     }
+
     public void create(ContactData contact) {
         initCreate();
-        fillForm(contact,true);
+        fillForm(contact, true);
         submitCreate();
         returnHomePage();
     }
+
     public void returnHomePage() {
         if (isElementPresent(By.id("maintable"))) {
             return;
@@ -91,16 +103,17 @@ public class ContactHelper extends HelperBase {
 
     public List<ContactData> list() {
         List<ContactData> contacts = new ArrayList<>();
-        List<WebElement> elements =  wd.findElements(By.xpath("//table[@id=\'maintable\']/tbody/tr"));
+        List<WebElement> elements = wd.findElements(By.xpath("//table[@id=\'maintable\']/tbody/tr"));
         for (int i = 2; i < elements.size() + 1; i++) {
             String name = wd.findElement(By.xpath("//table[@id=\'maintable\']/tbody/tr[" + i + "]/td[3]")).getText();
             String lastname = wd.findElement(By.xpath("//table[@id=\'maintable\']/tbody/tr[" + i + "]/td[2]")).getText();
-            ContactData contact = new ContactData(name,null,lastname,null,null);
+            ContactData contact = new ContactData(name, null, lastname, null, null);
             contacts.add(contact);
         }
 
         return contacts;
     }
+
     private String closeAlertAndGetItsText() {
         try {
             Alert alert = wd.switchTo().alert();

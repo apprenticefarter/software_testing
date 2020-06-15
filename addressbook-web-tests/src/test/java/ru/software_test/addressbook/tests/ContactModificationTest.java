@@ -29,11 +29,7 @@ public class ContactModificationTest extends TestBase {
 
         app.contact().returnHomePage();
         List<ContactData> before = app.contact().list();
-        app.contact().initModification(before.size());
-        app.contact().fillForm(new ContactData("Raul", null, "Edvard",
-                "skype", null), false);
-        app.contact().submitUpdate();
-        app.contact().returnHomePage();
+        app.contact().modify(before.size());
 
         List<ContactData> after = app.contact().list();
         before.remove(before.size() - 1);
@@ -44,4 +40,6 @@ public class ContactModificationTest extends TestBase {
         after.sort(byName);
         Assert.assertEquals(before, after);
     }
+
+
 }

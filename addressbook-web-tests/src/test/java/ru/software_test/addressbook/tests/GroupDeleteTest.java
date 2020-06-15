@@ -22,9 +22,7 @@ public class GroupDeleteTest extends TestBase {
 
         List<GroupData> before = app.group().list();
         int index = before.size() - 1;
-        app.group().select(index);
-        app.group().deleteSeclected();
-        app.group().returnToGroupPage();
+        app.group().delete(index);
         List<GroupData> after = app.group().list();
         Assert.assertEquals(before.size(), after.size() + 1);
 
@@ -35,5 +33,7 @@ public class GroupDeleteTest extends TestBase {
         Assert.assertEquals(before, after);
 
     }
+
+
 
 }
