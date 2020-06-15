@@ -12,7 +12,7 @@ public class NavigationHelper extends HelperBase {
 
 
 
-    public void gotoGroups() {
+    public void groups() {
         if (isElementPresent(By.tagName("h1"))
                 && wd.findElement(By.tagName("h1")).getText().equals("Groups")
                 && isElementPresent(By.name("new"))) {
@@ -22,7 +22,7 @@ public class NavigationHelper extends HelperBase {
     }
 
 
-    public void gotoHomePage() {
+    public void homePage() {
         click(By.linkText("home"));
     }
 }

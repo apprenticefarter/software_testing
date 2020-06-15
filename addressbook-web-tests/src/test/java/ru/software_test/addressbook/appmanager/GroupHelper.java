@@ -14,7 +14,7 @@ public class GroupHelper extends HelperBase {
         super(wd);
     }
 
-    public List<GroupData> getGroupList() {
+    public List<GroupData> list() {
         List<GroupData> groups = new ArrayList<>();
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
         for (WebElement element : elements){
@@ -42,11 +42,11 @@ public class GroupHelper extends HelperBase {
 
 
 
-    public void deleteSeclectedGroups() {
+    public void deleteSeclected() {
         click(By.xpath("(//input[@name='delete'])[2]"));
     }
 
-    public void selectGroups(int index) {
+    public void select(int index) {
         wd.findElements(By.name("selected[]")).get(index).click();
     }
 
@@ -58,14 +58,14 @@ public class GroupHelper extends HelperBase {
         click(By.name("update"));
     }
 
-    public void groupCreate(GroupData group) {
+    public void create(GroupData group) {
         initGroupCreate();
         fillGroupForm(group);
         submitGroupCreation();
         returnToGroupPage();
     }
-    public void groupModify(int index, GroupData group) {
-        selectGroups(index);
+    public void modify(int index, GroupData group) {
+        select(index);
         initGroupeModification();
         fillGroupForm(group);
         submitGroupModification();
@@ -75,7 +75,7 @@ public class GroupHelper extends HelperBase {
         click(By.linkText("group page"));
 
     }
-    public boolean groupExistanceCheck() {
+    public boolean existanceCheck() {
         click(By.linkText("groups"));
        return isElementPresent(By.name("selected[]"));
     }

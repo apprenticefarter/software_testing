@@ -12,23 +12,21 @@ import java.util.List;
 public class ContactCreateTest extends TestBase {
     @BeforeMethod
     public void preconditionCheck() {
-        if (!app.getGroupHelper().groupExistanceCheck()) {
-            app.getGroupHelper().groupCreate(new GroupData("222", "hhh", "fff"));
-            app.getNavigationHelper().gotoHomePage();
+        app.goTo().groups();
+        if (app.group().list().size() == 0) {
+            app.group().create(new GroupData("222", "hhh", "fff"));
+            app.goTo().homePage();
         }
 
     }
     @Test
     public void testContactCreate() throws Exception {
 
-        app.getNavigationHelper().gotoHomePage();
-        List<ContactData> before = app.getContactHelper().getContactList();
-        app.getContactHelper().initContactCreate();
-        app.getContactHelper().fillContactForm(new ContactData("Joe", "Ivanovich", "Trump",
-                "Missleaders", "222"), true);
-        app.getContactHelper().submitContactCreate();
-        app.getContactHelper().returnHomePage();
-        List<ContactData> after = app.getContactHelper().getContactList();
+        app.goTo().homePage();
+        List<ContactData> before = app.contact().list();
+        app.contact().create(new ContactData("Joe", "Ivanovich", "Trump",
+                "Missleaders", "222"));
+        List<ContactData> after = app.contact().list();
         before.add(new ContactData("Joe", "Ivanovich", "Trump",
                 "Missleaders", "222"));
         Comparator<? super ContactData> byName = (c1, c2) -> c1.getFisrtname().compareTo(c2.getFisrtname());
@@ -37,6 +35,8 @@ public class ContactCreateTest extends TestBase {
         Assert.assertEquals(before, after);
 
     }
+
+
 
 
 }
