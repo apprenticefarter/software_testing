@@ -76,8 +76,8 @@ public class ContactHelper extends HelperBase {
 
     public void modify(int index) {
         initModification(index);
-        fillForm(new ContactData("Raul", null, "Edvard",
-                "skype", null), false);
+        fillForm(new ContactData().withFisrtname("Raul").withLastname("Edvard")
+                .withCompany("skype"), false);
         submitUpdate();
         returnHomePage();
     }
@@ -107,7 +107,7 @@ public class ContactHelper extends HelperBase {
         for (int i = 2; i < elements.size() + 1; i++) {
             String name = wd.findElement(By.xpath("//table[@id=\'maintable\']/tbody/tr[" + i + "]/td[3]")).getText();
             String lastname = wd.findElement(By.xpath("//table[@id=\'maintable\']/tbody/tr[" + i + "]/td[2]")).getText();
-            ContactData contact = new ContactData(name, null, lastname, null, null);
+            ContactData contact = new ContactData().withFisrtname(name).withLastname(lastname);
             contacts.add(contact);
         }
 

@@ -15,11 +15,11 @@ public class GroupCreateTest extends TestBase {
 
         app.goTo().groups();
         List<GroupData> before = app.group().list();
-        app.group().create(new GroupData("222", "hhh", "fff"));
+        app.group().create(new GroupData().withName("222").withHeader("hhh").withFooter("fff"));
         List<GroupData> after = app.group().list();
 
         int maxid = after.stream().max((o1,o2) -> Integer.compare(o1.getId(),o2.getId())).get().getId();
-        before.add(new GroupData(maxid,"222", "hhh", "fff"));
+        before.add(new GroupData().withId(maxid).withName("222").withHeader("hhh").withFooter("fff"));
         Assert.assertEquals(new HashSet<>(before),  new HashSet<>(after));
 
     }

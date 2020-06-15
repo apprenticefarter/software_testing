@@ -3,12 +3,54 @@ package ru.software_test.addressbook.model;
 import java.util.Objects;
 
 public class ContactData {
-    private final String fisrtname;
-    private final String middlename;
-    private final String lastname;
-    private final String company;
+    private  String fisrtname;
+    private  String middlename;
+    private  String lastname;
+    private  String company;
     private String group;
 
+    public ContactData withFisrtname(String fisrtname) {
+        this.fisrtname = fisrtname;
+        return this;
+    }
+
+    public ContactData withMiddlename(String middlename) {
+        this.middlename = middlename;
+        return this;
+
+    }
+
+    public ContactData withLastname(String lastname) {
+        this.lastname = lastname;
+        return this;
+
+    }
+
+    public ContactData withCompany(String company) {
+        this.company = company;
+        return this;
+
+    }
+
+    public ContactData withGroup(String group) {
+        this.group = group;
+        return this;
+
+    }
+
+
+
+    public String getFisrtname() {
+        return fisrtname;
+    }
+
+    public String getMiddlename() {
+        return middlename;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -22,27 +64,6 @@ public class ContactData {
     public int hashCode() {
         return Objects.hash(fisrtname, lastname);
     }
-
-    public ContactData(String fisrtname, String middlename, String lastname, String company, String group) {
-        this.fisrtname = fisrtname;
-        this.middlename = middlename;
-        this.lastname = lastname;
-        this.company = company;
-        this.group = group;
-    }
-
-    public String getFisrtname() {
-        return fisrtname;
-    }
-
-    public String getMiddlename() {
-        return middlename;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
     @Override
     public String toString() {
         return "ContactData{" +

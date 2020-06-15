@@ -15,10 +15,10 @@ public class ContactDeleteTest extends TestBase {
         if (app.contact().list().size() == 0) {
             app.goTo().groups();
             if (app.group().list().size() == 0) {
-                app.group().create(new GroupData("222", "hhh", "fff"));
+                app.group().create(new GroupData().withName("222").withHeader("hhh").withFooter("fff"));
             }
-            app.contact().create(new ContactData("Joe", "Ivanovich", "Trump",
-                    "Missleaders", "222"));
+            app.contact().create(new ContactData().withFisrtname("Joe").withMiddlename("Ivanovich")
+                    .withLastname("Trump").withCompany("Missleaders").withGroup("222"));
         }
 
     }
