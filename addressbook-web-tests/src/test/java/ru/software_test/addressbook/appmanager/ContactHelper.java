@@ -9,7 +9,9 @@ import org.testng.Assert;
 import ru.software_test.addressbook.model.ContactData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.testng.AssertJUnit.assertTrue;
 
@@ -39,14 +41,14 @@ public class ContactHelper extends HelperBase {
 
     }
 
-    public void delete(int index) {
-        choose(index);
+    public void delete(ContactData contact) {
+        chooseById(contact.getId());
         initDelete();
 
     }
 
-    public void choose(int index) {
-        wd.findElements(By.name("selected[]")).get(index).click();
+    public void chooseById(int id) {
+        wd.findElement(By.xpath("//input[@id='" + id +"']")).click();
 
     }
 
@@ -113,6 +115,19 @@ public class ContactHelper extends HelperBase {
 
         return contacts;
     }
+    public Set<ContactData> allset() {
+        Set<ContactData> contacts = new HashSet<>();
+        List<WebElement> elements = wd.findElements(By.xpath("//table[@id=\'maintable\']/tbody/tr"));
+        for (int i = 2; i < elements.size() + 1; i++) {
+            String name = wd.findElement(By.xpath("//table[@id=\'maintable\']/tbody/tr[" + i + "]/td[3]")).getText();
+            String lastname = wd.findElement(By.xpath("//table[@id=\'maintable\']/tbody/tr[" + i + "]/td[2]")).getText();
+            int id = Integer.parseInt(wd.findElement(By.xpath("//table[@id='maintable']/tbody/tr[" + i +"]/td/input")).getAttribute("value"));
+            ContactData contact = new ContactData().withId(id).withFisrtname(name).withLastname(lastname);
+            contacts.add(contact);
+        }
+
+        return contacts;
+    }
 
     private String closeAlertAndGetItsText() {
         try {
@@ -128,4 +143,6 @@ public class ContactHelper extends HelperBase {
             acceptNextAlert = true;
         }
     }
+
+
 }

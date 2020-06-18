@@ -3,6 +3,7 @@ package ru.software_test.addressbook.model;
 import java.util.Objects;
 
 public class ContactData {
+    private  Integer id;
     private  String fisrtname;
     private  String middlename;
     private  String lastname;
@@ -11,6 +12,10 @@ public class ContactData {
 
     public ContactData withFisrtname(String fisrtname) {
         this.fisrtname = fisrtname;
+        return this;
+    }
+    public ContactData withId(Integer id) {
+        this.id = id;
         return this;
     }
 
@@ -38,7 +43,9 @@ public class ContactData {
 
     }
 
-
+    public Integer getId() {
+        return id;
+    }
 
     public String getFisrtname() {
         return fisrtname;
@@ -51,23 +58,28 @@ public class ContactData {
     public String getLastname() {
         return lastname;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ContactData that = (ContactData) o;
-        return Objects.equals(fisrtname, that.fisrtname) &&
+        return Objects.equals(id, that.id) &&
+                Objects.equals(fisrtname, that.fisrtname) &&
                 Objects.equals(lastname, that.lastname);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(fisrtname, lastname);
+        return Objects.hash(id, fisrtname, lastname);
     }
+
     @Override
     public String toString() {
         return "ContactData{" +
-                "fisrtname='" + fisrtname + '\'' +
+                "id=" + id +
+                ", fisrtname='" + fisrtname + '\'' +
+                ", lastname='" + lastname + '\'' +
                 '}';
     }
 

@@ -8,6 +8,7 @@ import ru.software_test.addressbook.model.GroupData;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 public class ContactCreateTest extends TestBase {
     @BeforeMethod
@@ -23,15 +24,14 @@ public class ContactCreateTest extends TestBase {
     public void testContactCreate() throws Exception {
 
         app.goTo().homePage();
-        List<ContactData> before = app.contact().list();
+        Set<ContactData> before = app.contact().allset();
         app.contact().create(new ContactData().withFisrtname("Joe").withMiddlename("Ivanovich")
                 .withLastname("Trump").withCompany("Missleaders").withGroup("222"));
-        List<ContactData> after = app.contact().list();
-        before.add(new ContactData().withFisrtname("Joe").withMiddlename("Ivanovich")
+        Set<ContactData> after = app.contact().allset();
+        int max = after.stream().mapToInt((c) -> c.getId()).max().getAsInt();
+        before.add(new ContactData().withId(max).withFisrtname("Joe").withMiddlename("Ivanovich")
                 .withLastname("Trump").withCompany("Missleaders").withGroup("222"));
-        Comparator<? super ContactData> byName = (c1, c2) -> c1.getFisrtname().compareTo(c2.getFisrtname());
-        before.sort(byName);
-        after.sort(byName);
+
         Assert.assertEquals(before, after);
 
     }

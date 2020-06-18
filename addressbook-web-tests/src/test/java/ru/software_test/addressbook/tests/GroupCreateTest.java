@@ -3,9 +3,14 @@ package ru.software_test.addressbook.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.software_test.addressbook.model.GroupData;
+import ru.software_test.addressbook.model.Groups;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GroupCreateTest extends TestBase {
 
@@ -14,13 +19,13 @@ public class GroupCreateTest extends TestBase {
     public void testGroupCreate() throws Exception {
 
         app.goTo().groups();
-        List<GroupData> before = app.group().list();
+        Groups before = app.group().allset();
         app.group().create(new GroupData().withName("222").withHeader("hhh").withFooter("fff"));
-        List<GroupData> after = app.group().list();
+        Groups after = app.group().allset();
 
-        int maxid = after.stream().max((o1,o2) -> Integer.compare(o1.getId(),o2.getId())).get().getId();
-        before.add(new GroupData().withId(maxid).withName("222").withHeader("hhh").withFooter("fff"));
-        Assert.assertEquals(new HashSet<>(before),  new HashSet<>(after));
+        int max = after.stream().mapToInt((g) -> g.getId()).max().getAsInt();
+        assertThat(after, equalTo(before.withAdded(new GroupData()
+                .withId(max).withName("222").withHeader("hhh").withFooter("fff"))));
 
     }
 

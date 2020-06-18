@@ -1,12 +1,17 @@
 package ru.software_test.addressbook.tests;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.software_test.addressbook.model.GroupData;
+import ru.software_test.addressbook.model.Groups;
 
-import java.util.Comparator;
-import java.util.List;
+import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GroupDeleteTest extends TestBase {
     @BeforeMethod
@@ -20,17 +25,11 @@ public class GroupDeleteTest extends TestBase {
     @Test
     public void testGroupDelete() throws Exception {
 
-        List<GroupData> before = app.group().list();
-        int index = before.size() - 1;
-        app.group().delete(index);
-        List<GroupData> after = app.group().list();
-        Assert.assertEquals(before.size(), after.size() + 1);
-
-        before.remove(index);
-        Comparator<? super GroupData> byID = (g1, g2) -> Integer.compare(g1.getId(),g2.getId());
-        before.sort(byID);
-        after.sort(byID);
-        Assert.assertEquals(before, after);
+        Groups before = app.group().allset();
+        GroupData deletedGroup = before.iterator().next();
+        app.group().delete(deletedGroup);
+        Groups after = app.group().allset();
+        assertThat(after, equalTo(before.without(deletedGroup)));
 
     }
 

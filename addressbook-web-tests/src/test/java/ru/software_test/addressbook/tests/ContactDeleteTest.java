@@ -8,6 +8,7 @@ import ru.software_test.addressbook.model.GroupData;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 public class ContactDeleteTest extends TestBase {
     @BeforeMethod
@@ -27,15 +28,14 @@ public class ContactDeleteTest extends TestBase {
     public void testContactDelete() throws Exception {
 
         app.contact().returnHomePage();
-        List<ContactData> before = app.contact().list();
-        int index = before.size() - 1;
-        app.contact().delete(index);
+        Set<ContactData> before = app.contact().allset();
+        ContactData deleteContact = before.iterator().next();
+
+        app.contact().delete(deleteContact);
         app.goTo().homePage();
-        List<ContactData> after = app.contact().list();
-        before.remove(index);
-        Comparator<? super ContactData> byName = (c1, c2) -> c1.getFisrtname().compareTo(c2.getFisrtname());
-        before.sort(byName);
-        after.sort(byName);
+        Set<ContactData> after = app.contact().allset();
+        before.remove(deleteContact);
+
         Assert.assertEquals(before, after);
     }
 
