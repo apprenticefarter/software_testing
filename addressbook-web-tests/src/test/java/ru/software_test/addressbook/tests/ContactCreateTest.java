@@ -4,11 +4,13 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.software_test.addressbook.model.ContactData;
+import ru.software_test.addressbook.model.Contacts;
 import ru.software_test.addressbook.model.GroupData;
 
-import java.util.Comparator;
-import java.util.List;
 import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactCreateTest extends TestBase {
     @BeforeMethod
@@ -24,16 +26,13 @@ public class ContactCreateTest extends TestBase {
     public void testContactCreate() throws Exception {
 
         app.goTo().homePage();
-        Set<ContactData> before = app.contact().allset();
+        Contacts before = app.contact().allset();
         app.contact().create(new ContactData().withFisrtname("Joe").withMiddlename("Ivanovich")
                 .withLastname("Trump").withCompany("Missleaders").withGroup("222"));
-        Set<ContactData> after = app.contact().allset();
+        Contacts after = app.contact().allset();
         int max = after.stream().mapToInt((c) -> c.getId()).max().getAsInt();
-        before.add(new ContactData().withId(max).withFisrtname("Joe").withMiddlename("Ivanovich")
-                .withLastname("Trump").withCompany("Missleaders").withGroup("222"));
-
-        Assert.assertEquals(before, after);
-
+        assertThat(after, equalTo(before.withAdded(new ContactData().withId(max).withFisrtname("Joe").withMiddlename("Ivanovich")
+                .withLastname("Trump").withCompany("Missleaders").withGroup("222"))));
     }
 
 

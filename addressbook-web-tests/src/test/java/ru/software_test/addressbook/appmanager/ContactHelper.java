@@ -7,11 +7,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.software_test.addressbook.model.ContactData;
+import ru.software_test.addressbook.model.Contacts;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static org.testng.AssertJUnit.assertTrue;
 
@@ -48,12 +47,12 @@ public class ContactHelper extends HelperBase {
     }
 
     public void chooseById(int id) {
-        wd.findElement(By.xpath("//input[@id='" + id +"']")).click();
+        wd.findElement(By.xpath("//input[@id='" + id + "']")).click();
 
     }
 
-    public void initModification(int index) {
-        click(By.xpath("(//img[@alt='Edit'])[" + index + "]"));
+    public void initModificationById(int id) {
+        wd.get("http://localhost:8080/addressbook/edit.php?id="+id+"");
 
     }
 
@@ -76,8 +75,8 @@ public class ContactHelper extends HelperBase {
     }
 
 
-    public void modify(int index) {
-        initModification(index);
+    public void modify(ContactData contact) {
+        initModificationById(contact.getId());
         fillForm(new ContactData().withFisrtname("Raul").withLastname("Edvard")
                 .withCompany("skype"), false);
         submitUpdate();
@@ -115,13 +114,14 @@ public class ContactHelper extends HelperBase {
 
         return contacts;
     }
-    public Set<ContactData> allset() {
-        Set<ContactData> contacts = new HashSet<>();
+
+    public Contacts allset() {
+        Contacts contacts = new Contacts();
         List<WebElement> elements = wd.findElements(By.xpath("//table[@id=\'maintable\']/tbody/tr"));
         for (int i = 2; i < elements.size() + 1; i++) {
             String name = wd.findElement(By.xpath("//table[@id=\'maintable\']/tbody/tr[" + i + "]/td[3]")).getText();
             String lastname = wd.findElement(By.xpath("//table[@id=\'maintable\']/tbody/tr[" + i + "]/td[2]")).getText();
-            int id = Integer.parseInt(wd.findElement(By.xpath("//table[@id='maintable']/tbody/tr[" + i +"]/td/input")).getAttribute("value"));
+            int id = Integer.parseInt(wd.findElement(By.xpath("//table[@id='maintable']/tbody/tr[" + i + "]/td/input")).getAttribute("value"));
             ContactData contact = new ContactData().withId(id).withFisrtname(name).withLastname(lastname);
             contacts.add(contact);
         }

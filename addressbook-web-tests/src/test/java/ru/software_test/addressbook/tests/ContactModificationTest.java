@@ -6,8 +6,6 @@ import org.testng.annotations.Test;
 import ru.software_test.addressbook.model.ContactData;
 import ru.software_test.addressbook.model.GroupData;
 
-import java.util.Comparator;
-import java.util.List;
 import java.util.Set;
 
 public class ContactModificationTest extends TestBase {
@@ -31,7 +29,7 @@ public class ContactModificationTest extends TestBase {
         app.contact().returnHomePage();
         Set<ContactData> before = app.contact().allset();
         ContactData modifyContact = before.iterator().next();
-        app.contact().modify(before.size());
+        app.contact().modify(modifyContact);
 
         Set<ContactData> after = app.contact().allset();
         before.remove(modifyContact);

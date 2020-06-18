@@ -1,13 +1,8 @@
 package ru.software_test.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.software_test.addressbook.model.GroupData;
 import ru.software_test.addressbook.model.Groups;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;

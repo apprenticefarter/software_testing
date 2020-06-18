@@ -60,6 +60,15 @@ public class ContactData {
     }
 
     @Override
+    public String toString() {
+        return "ContactData{" +
+                "id=" + id +
+                ", fisrtname='" + fisrtname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -72,15 +81,6 @@ public class ContactData {
     @Override
     public int hashCode() {
         return Objects.hash(id, fisrtname, lastname);
-    }
-
-    @Override
-    public String toString() {
-        return "ContactData{" +
-                "id=" + id +
-                ", fisrtname='" + fisrtname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                '}';
     }
 
     public String getCompany() {
