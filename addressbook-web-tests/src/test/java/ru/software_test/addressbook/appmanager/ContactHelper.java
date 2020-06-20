@@ -134,6 +134,9 @@ public class ContactHelper extends HelperBase {
 
         return new Contacts(contactCache);
     }
+    public int count() {
+        return wd.findElements(By.name("selected[]")).size();
+    }
 
     private String closeAlertAndGetItsText() {
         try {

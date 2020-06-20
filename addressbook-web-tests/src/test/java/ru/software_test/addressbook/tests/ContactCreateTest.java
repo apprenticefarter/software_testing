@@ -1,13 +1,10 @@
 package ru.software_test.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.software_test.addressbook.model.ContactData;
 import ru.software_test.addressbook.model.Contacts;
 import ru.software_test.addressbook.model.GroupData;
-
-import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
