@@ -12,9 +12,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ContactModificationTest extends TestBase {
     @BeforeMethod
     public void preconditionCheck() {
-        if (app.contact().list().size() == 0) {
+        if (app.contact().allset().size() == 0) {
             app.goTo().groups();
-            if (app.group().list().size() == 0) {
+            if (app.group().allset().size() == 0) {
                 app.group().create(new GroupData().withName("222").withHeader("hhh").withFooter("fff"));
             }
             app.contact().create(new ContactData().withFisrtname("Joe").withMiddlename("Ivanovich")
