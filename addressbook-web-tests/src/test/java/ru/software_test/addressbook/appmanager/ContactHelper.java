@@ -43,6 +43,7 @@ public class ContactHelper extends HelperBase {
     public void delete(ContactData contact) {
         chooseById(contact.getId());
         initDelete();
+        contactCache = null;
 
     }
 
@@ -80,6 +81,7 @@ public class ContactHelper extends HelperBase {
         fillForm(new ContactData().withFisrtname("Raul").withLastname("Edvard")
                 .withCompany("skype"), false);
         submitUpdate();
+        contactCache = null;
         returnHomePage();
     }
 
@@ -87,6 +89,7 @@ public class ContactHelper extends HelperBase {
         initCreate();
         fillForm(contact, true);
         submitCreate();
+        contactCache = null;
         returnHomePage();
     }
 
@@ -114,19 +117,22 @@ public class ContactHelper extends HelperBase {
 
         return contacts;
     }
-
+    private Contacts contactCache = null;
     public Contacts allset() {
-        Contacts contacts = new Contacts();
+        if (contactCache != null){
+            return new Contacts(contactCache);
+        }
+        contactCache = new Contacts();
         List<WebElement> elements = wd.findElements(By.xpath("//table[@id=\'maintable\']/tbody/tr"));
         for (int i = 2; i < elements.size() + 1; i++) {
             String name = wd.findElement(By.xpath("//table[@id=\'maintable\']/tbody/tr[" + i + "]/td[3]")).getText();
             String lastname = wd.findElement(By.xpath("//table[@id=\'maintable\']/tbody/tr[" + i + "]/td[2]")).getText();
             int id = Integer.parseInt(wd.findElement(By.xpath("//table[@id='maintable']/tbody/tr[" + i + "]/td/input")).getAttribute("value"));
             ContactData contact = new ContactData().withId(id).withFisrtname(name).withLastname(lastname);
-            contacts.add(contact);
+            contactCache.add(contact);
         }
 
-        return contacts;
+        return new Contacts(contactCache);
     }
 
     private String closeAlertAndGetItsText() {
