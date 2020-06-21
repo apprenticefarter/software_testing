@@ -53,7 +53,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void initModificationById(int id) {
-        wd.get("http://localhost:8080/addressbook/edit.php?id=" + id + "");
+        wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
 
     }
 
@@ -76,10 +76,9 @@ public class ContactHelper extends HelperBase {
     }
 
 
-    public void modify(ContactData contact) {
+    public void modify(ContactData contact,ContactData newdata) {
         initModificationById(contact.getId());
-        fillForm(new ContactData().withFisrtname("Raul").withLastname("Edvard")
-                .withCompany("skype"), false);
+        fillForm(newdata, false);
         submitUpdate();
         contactCache = null;
         returnHomePage();
@@ -174,6 +173,6 @@ public class ContactHelper extends HelperBase {
         return new ContactData().withId(contact.getId()).withFisrtname(firstname).
                 withLastname(lastname).withHomePhone(home).withMobilePhone(mobile).
                 withWorkPhone(work).withEmail(email).withEmail2(email2).withEmail3(email3);
-        
+
     }
 }
