@@ -9,6 +9,7 @@ import org.testng.Assert;
 import ru.software_test.addressbook.model.ContactData;
 import ru.software_test.addressbook.model.Contacts;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class ContactHelper extends HelperBase {
         type(By.name("middlename"), contact.getMiddlename());
         type(By.name("lastname"), contact.getLastname());
         type(By.name("company"), contact.getCompany());
+        attach(By.name("photo"),contact.getPhoto());
 
         if (creation) {
             new Select(wd.findElement(By.name("new_group"))).selectByIndex(1);
