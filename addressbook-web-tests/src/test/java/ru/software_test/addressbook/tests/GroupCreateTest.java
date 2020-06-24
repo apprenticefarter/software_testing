@@ -3,6 +3,8 @@ package ru.software_test.addressbook.tests;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.software_test.addressbook.model.GroupData;
@@ -60,7 +62,6 @@ public class GroupCreateTest extends TestBase {
 
     @Test(dataProvider = "validGroupsFromJson")
     public void testGroupCreate(GroupData group) throws Exception {
-
         app.goTo().groups();
         Groups before = app.group().allset();
         app.group().create(group);

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.software_test.addressbook.tests.ContactPhoneTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-06-24T10:41:37" hostname="ssd" time="0.444">
+  <properties/>
+  <testcase name="testContactPhones" classname="ru.software_test.addressbook.tests.ContactPhoneTest" time="0.444"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

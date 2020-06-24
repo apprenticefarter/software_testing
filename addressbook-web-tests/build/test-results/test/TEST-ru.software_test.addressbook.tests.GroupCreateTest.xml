@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.software_test.addressbook.tests.GroupCreateTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2020-06-24T10:41:38" hostname="ssd" time="5.162">
+  <properties/>
+  <testcase name="testBadGroupCreate" classname="ru.software_test.addressbook.tests.GroupCreateTest" time="1.248"/>
+  <testcase name="testGroupCreate[0](GroupData{id='2147483647', name='generated 0'})" classname="ru.software_test.addressbook.tests.GroupCreateTest" time="1.298"/>
+  <testcase name="testGroupCreate[1](GroupData{id='2147483647', name='generated 1'})" classname="ru.software_test.addressbook.tests.GroupCreateTest" time="1.266"/>
+  <testcase name="testGroupCreate[2](GroupData{id='2147483647', name='generated 2'})" classname="ru.software_test.addressbook.tests.GroupCreateTest" time="1.345"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

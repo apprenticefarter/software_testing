@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.software_test.addressbook.tests.ContactCreateTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2020-06-24T10:41:20" hostname="ssd" time="11.211">
+  <properties/>
+  <testcase name="testContactCreate[0](ContactData{id=null, fisrtname='Firstname 0', lastname='Lastname 0'})" classname="ru.software_test.addressbook.tests.ContactCreateTest" time="4.097"/>
+  <testcase name="testContactCreate[1](ContactData{id=null, fisrtname='Firstname 1', lastname='Lastname 1'})" classname="ru.software_test.addressbook.tests.ContactCreateTest" time="3.465"/>
+  <testcase name="testContactCreate[2](ContactData{id=null, fisrtname='Firstname 2', lastname='Lastname 2'})" classname="ru.software_test.addressbook.tests.ContactCreateTest" time="3.493"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
