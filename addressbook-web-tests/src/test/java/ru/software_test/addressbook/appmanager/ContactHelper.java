@@ -9,7 +9,6 @@ import org.testng.Assert;
 import ru.software_test.addressbook.model.ContactData;
 import ru.software_test.addressbook.model.Contacts;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +28,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void fillForm(ContactData contact, boolean creation) {
-        type(By.name("firstname"), contact.getFisrtname());
+        type(By.name("firstname"), contact.getFirstname());
         type(By.name("middlename"), contact.getMiddlename());
         type(By.name("lastname"), contact.getLastname());
         type(By.name("company"), contact.getCompany());

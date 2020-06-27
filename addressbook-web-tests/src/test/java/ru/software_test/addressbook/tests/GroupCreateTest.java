@@ -72,7 +72,7 @@ public class GroupCreateTest extends TestBase {
 
     }
 
-    @Test
+    @Test(enabled = false)
     public void testBadGroupCreate() throws Exception {
 
         app.goTo().groups();

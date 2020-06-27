@@ -1,33 +1,72 @@
 package ru.software_test.addressbook.model;
 
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
-
+@Entity
+@Table(name = "addressbook")
 public class ContactData {
+    @Id
+    @Column(name = "id")
     private  Integer id;
-    private  String fisrtname;
+
+    @Column(name = "firstname")
+    private  String firstname;
+
+    @Column(name = "middlename")
     private  String middlename;
+
+    @Column(name = "lastname")
     private  String lastname;
+
+    @Transient
     private  String company;
+
+    @Transient
     private String group;
+
+    @Column(name = "home")
+    @Type(type = "text")
     private String homePhone;
+
+    @Column(name = "mobile")
+    @Type(type = "text")
     private String mobilePhone;
+
+    @Transient
     private String allPhones;
+
+    @Transient
     private String allEmails;
+
+    @Column(name = "work")
+    @Type(type = "text")
     private String workPhone;
+
+    @Type(type = "text")
     private String email;
+
+    @Type(type = "text")
     private String email2;
 
+    @Type(type = "text")
+    private String email3;
+
+    @Column(name = "photo")
+    @Type(type = "text")
+    private String photo;
+
     public File getPhoto() {
-        return photo;
+        return new File(photo);
     }
 
     public ContactData withPhoto(File photo) {
-        this.photo = photo;
+        this.photo = photo.getPath();
         return this;
     }
 
-    private File photo;
 
     public String getEmail() {
         return email;
@@ -41,14 +80,13 @@ public class ContactData {
         return email3;
     }
 
-    private String email3;
 
 
 
 
 
     public ContactData withFisrtname(String fisrtname) {
-        this.fisrtname = fisrtname;
+        this.firstname = fisrtname;
         return this;
     }
     public ContactData withallPhones(String allPhones) {
@@ -141,8 +179,8 @@ public class ContactData {
         return id;
     }
 
-    public String getFisrtname() {
-        return fisrtname;
+    public String getFirstname() {
+        return firstname;
     }
 
     public String getMiddlename() {
@@ -157,7 +195,7 @@ public class ContactData {
     public String toString() {
         return "ContactData{" +
                 "id=" + id +
-                ", fisrtname='" + fisrtname + '\'' +
+                ", fisrtname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 '}';
     }
@@ -168,13 +206,13 @@ public class ContactData {
         if (o == null || getClass() != o.getClass()) return false;
         ContactData that = (ContactData) o;
         return Objects.equals(id, that.id) &&
-                Objects.equals(fisrtname, that.fisrtname) &&
+                Objects.equals(firstname, that.firstname) &&
                 Objects.equals(lastname, that.lastname);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, fisrtname, lastname);
+        return Objects.hash(id, firstname, lastname);
     }
 
     public String getCompany() {

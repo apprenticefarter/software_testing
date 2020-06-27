@@ -122,4 +122,14 @@ public class GroupHelper extends HelperBase {
     }
 
 
+    public void deleteAll() {
+       int size = wd.findElements(By.name("selected[]")).size();
+       for(int i = 0;i<size;i++){
+           wd.findElement(By.name("selected[]")).click();
+           deleteSeclected();
+           returnToGroupPage();
+
+       }
+
+    }
 }
