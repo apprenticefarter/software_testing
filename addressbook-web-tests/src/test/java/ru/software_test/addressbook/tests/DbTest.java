@@ -7,7 +7,7 @@ import ru.software_test.addressbook.model.Groups;
 import java.sql.*;
 
 public class DbTest {
-    @Test
+    @Test(enabled = false)
     public void testDbConnection() {
         Connection conn = null;
         Groups groups = new Groups();

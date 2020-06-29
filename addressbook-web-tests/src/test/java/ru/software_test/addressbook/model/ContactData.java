@@ -16,7 +16,7 @@ public class ContactData {
     private  String firstname;
 
     @Column(name = "middlename")
-    private  String middlename;
+    private  String middlename="";
 
     @Column(name = "lastname")
     private  String lastname;
@@ -24,16 +24,17 @@ public class ContactData {
     @Transient
     private  String company;
 
+
     @Transient
     private String group;
 
     @Column(name = "home")
     @Type(type = "text")
-    private String homePhone;
+    private String homePhone="";
 
     @Column(name = "mobile")
     @Type(type = "text")
-    private String mobilePhone;
+    private String mobilePhone="";
 
     @Transient
     private String allPhones;
@@ -43,16 +44,16 @@ public class ContactData {
 
     @Column(name = "work")
     @Type(type = "text")
-    private String workPhone;
+    private String workPhone="";
 
     @Type(type = "text")
-    private String email;
+    private String email="";
 
     @Type(type = "text")
-    private String email2;
+    private String email2="";
 
     @Type(type = "text")
-    private String email3;
+    private String email3="";
 
     @Column(name = "photo")
     @Type(type = "text")
@@ -67,10 +68,11 @@ public class ContactData {
         return this;
     }
 
-
     public String getEmail() {
         return email;
     }
+
+
 
     public String getEmail2() {
         return email2;
@@ -79,11 +81,6 @@ public class ContactData {
     public String getEmail3() {
         return email3;
     }
-
-
-
-
-
 
     public ContactData withFisrtname(String fisrtname) {
         this.firstname = fisrtname;
@@ -191,15 +188,13 @@ public class ContactData {
         return lastname;
     }
 
-    @Override
-    public String toString() {
-        return "ContactData{" +
-                "id=" + id +
-                ", fisrtname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                '}';
+    public String getCompany() {
+        return company;
     }
 
+    public  String getGroup() {
+        return group;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -207,19 +202,38 @@ public class ContactData {
         ContactData that = (ContactData) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(firstname, that.firstname) &&
-                Objects.equals(lastname, that.lastname);
+                Objects.equals(middlename, that.middlename) &&
+                Objects.equals(lastname, that.lastname) &&
+                Objects.equals(homePhone, that.homePhone) &&
+                Objects.equals(mobilePhone, that.mobilePhone) &&
+                Objects.equals(workPhone, that.workPhone) &&
+                Objects.equals(email, that.email) &&
+                Objects.equals(email2, that.email2) &&
+                Objects.equals(email3, that.email3);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstname, lastname);
+        return Objects.hash(id, firstname, middlename, lastname, homePhone, mobilePhone, workPhone, email, email2, email3);
     }
-
-    public String getCompany() {
-        return company;
-    }
-
-    public  String getGroup() {
-        return group;
+    @Override
+    public String toString() {
+        return "ContactData{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", middlename='" + middlename + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", company='" + company + '\'' +
+                ", group='" + group + '\'' +
+                ", homePhone='" + homePhone + '\'' +
+                ", mobilePhone='" + mobilePhone + '\'' +
+                ", allPhones='" + allPhones + '\'' +
+                ", allEmails='" + allEmails + '\'' +
+                ", workPhone='" + workPhone + '\'' +
+                ", email='" + email + '\'' +
+                ", email2='" + email2 + '\'' +
+                ", email3='" + email3 + '\'' +
+                ", photo='" + photo + '\'' +
+                '}';
     }
 }

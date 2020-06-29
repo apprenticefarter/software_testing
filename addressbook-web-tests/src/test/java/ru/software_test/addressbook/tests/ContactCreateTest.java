@@ -25,7 +25,7 @@ public class ContactCreateTest extends TestBase {
     @BeforeMethod
     public void preconditionCheck() {
         app.goTo().groups();
-        if (app.group().allset().size() == 0) {
+        if (app.db().groups().size() == 0) {
             app.group().create(new GroupData().withName("222").withHeader("hhh").withFooter("fff"));
             app.goTo().homePage();
         }
@@ -53,11 +53,11 @@ public class ContactCreateTest extends TestBase {
     public void testContactCreate(ContactData contact) throws Exception {
 
         app.goTo().homePage();
-        Contacts before = app.contact().allset();
+        Contacts before = app.db().contacts();
         File photo = new File("src/test/resources/new.png");
         app.contact().create(contact.withPhoto(photo));
         assertThat(app.contact().count(), equalTo(before.size()+1));
-        Contacts after = app.contact().allset();
+        Contacts after = app.db().contacts();
         int max = after.stream().mapToInt((c) -> c.getId()).max().getAsInt();
         assertThat(after, equalTo(before.withAdded(contact.withId(max))));
     }
