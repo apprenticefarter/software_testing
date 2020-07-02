@@ -8,10 +8,17 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import ru.software_test.addressbook.appmanager.ApplicationManager;
+import ru.software_test.addressbook.model.ContactData;
+import ru.software_test.addressbook.model.Contacts;
+import ru.software_test.addressbook.model.GroupData;
+import ru.software_test.addressbook.model.Groups;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Collectors;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TestBase {
     Logger logger = LoggerFactory.getLogger(GroupCreateTest.class);
@@ -31,8 +38,8 @@ public class TestBase {
     }
 
     @BeforeMethod
-    public void logTestStart(Method m, Object [] p) {
-        logger.info("Start test  " + m.getName()+"  with paramets:  "+ Arrays.asList(p));
+    public void logTestStart(Method m, Object[] p) {
+        logger.info("Start test  " + m.getName() + "  with paramets:  " + Arrays.asList(p));
 
     }
 
@@ -45,5 +52,24 @@ public class TestBase {
 
     public ApplicationManager getApp() {
         return app;
+    }
+
+    public void verifyGroupListUi() {
+       // if(Boolean.getBoolean("verifyUi")){
+       Groups Dblist = app.db().groups();
+       Groups UiList = app.group().allset();
+        assertThat(UiList, equalTo(Dblist.stream()
+                .map(g -> new GroupData().withId(g.getId()).withName(g.getName()))
+                .collect(Collectors.toSet())));
+       // }
+    }
+    public void verifyContactListUi() {
+        // if(Boolean.getBoolean("verifyUi")){
+        Contacts Dblist = app.db().contacts();
+        Contacts UiList = app.contact().allset();
+        assertThat(UiList, equalTo(Dblist.stream()
+                .map(g -> new ContactData().withId(g.getId()).withFisrtname(g.getFirstname()).withLastname(g.getLastname()))
+                .collect(Collectors.toSet())));
+        // }
     }
 }

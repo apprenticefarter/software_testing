@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.software_test.addressbook.model.ContactData;
 import ru.software_test.addressbook.model.Contacts;
+import ru.software_test.addressbook.model.GroupData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +33,14 @@ public class ContactHelper extends HelperBase {
         type(By.name("middlename"), contact.getMiddlename());
         type(By.name("lastname"), contact.getLastname());
         type(By.name("company"), contact.getCompany());
-        attach(By.name("photo"),contact.getPhoto());
+        attach(By.name("photo"), contact.getPhoto());
 
         if (creation) {
-            new Select(wd.findElement(By.name("new_group"))).selectByIndex(1);
+            if (contact.getGroups().size() > 0) {
+                Assert.assertTrue(contact.getGroups().size() == 1);
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contact.getGroups()
+                        .iterator().next().getName());
+            }
         } else
             Assert.assertFalse(isElementPresent(By.name("new_group")));
 
@@ -77,12 +82,41 @@ public class ContactHelper extends HelperBase {
     }
 
 
-    public void modify(ContactData contact,ContactData newdata) {
+    public void modify(ContactData contact, ContactData newdata) {
         initModificationById(contact.getId());
         fillForm(newdata, false);
         submitUpdate();
         contactCache = null;
         returnHomePage();
+    }
+
+    public void addGroup(ContactData contact, GroupData modGroup) {
+        chooseById(contact.getId());
+        initAddingGroup(modGroup);
+        returnHomePage();
+    }
+    public void delGroup(ContactData contact, GroupData modGroup) {
+        initDelGroup(modGroup);
+        chooseById(contact.getId());
+        submitRemoveGroup();
+        returnHomePage();
+
+
+    }
+    public void GetHomeUrl() {
+        wd.get("http://localhost:8080/addressbook/");
+    }
+    private void submitRemoveGroup() {
+        wd.findElement(By.name("remove")).click();
+    }
+
+    private void initAddingGroup( GroupData group) {
+        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(group.getName());
+        wd.findElement(By.name("add")).click();
+    }
+    private void initDelGroup( GroupData group) {
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
+        wd.findElement(By.name("group")).click();
     }
 
     public void create(ContactData contact) {
@@ -97,7 +131,7 @@ public class ContactHelper extends HelperBase {
         if (isElementPresent(By.id("maintable"))) {
             return;
         }
-        wd.findElement(By.linkText("home page")).click();
+        wd.findElement(By.linkText("home")).click();
     }
 
     public boolean contactExistanceChek() {
@@ -176,4 +210,6 @@ public class ContactHelper extends HelperBase {
                 withWorkPhone(work).withEmail(email).withEmail2(email2).withEmail3(email3);
 
     }
+
+
 }

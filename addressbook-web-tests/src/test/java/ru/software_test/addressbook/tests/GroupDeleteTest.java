@@ -26,6 +26,8 @@ public class GroupDeleteTest extends TestBase {
         assertThat(app.group().count()+1, equalTo(before.size()));
         Groups after = app.db().groups();
         assertThat(after, equalTo(before.without(deletedGroup)));
+        verifyGroupListUi();
+
 
     }
     @Test(enabled = false)

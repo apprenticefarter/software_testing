@@ -21,7 +21,7 @@ public class ContactDeleteTest extends TestBase {
             }
             File photo = new File("src/test/resources/new.png");
             app.contact().create(new ContactData().withFisrtname("Joe").withMiddlename("Ivanovich")
-                    .withLastname("Trump").withCompany("Missleaders").withGroup("222").withPhoto(photo));
+                    .withLastname("Trump").withCompany("Missleaders").withPhoto(photo));
         }
 
     }

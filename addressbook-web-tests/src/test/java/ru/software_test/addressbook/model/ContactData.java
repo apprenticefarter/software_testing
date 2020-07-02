@@ -4,7 +4,10 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
 @Entity
 @Table(name = "addressbook")
 public class ContactData {
@@ -25,8 +28,17 @@ public class ContactData {
     private  String company;
 
 
-    @Transient
-    private String group;
+    //@Transient
+    //private String group;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "address_in_groups",joinColumns = @JoinColumn(name = "id")
+            ,inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<GroupData> groups = new HashSet<>();
+
+    public ContactData inGroup(GroupData group) {
+        groups.add(group);
+        return this;
+    }
 
     @Column(name = "home")
     @Type(type = "text")
@@ -125,11 +137,11 @@ public class ContactData {
 
     }
 
-    public ContactData withGroup(String group) {
-        this.group = group;
-        return this;
+    //public ContactData withGroup(String group) {
+    //    this.group = group;
+    //    return this;
 
-    }
+   // }
     public ContactData withHomePhone(String home) {
         this.homePhone = home;
         return this;
@@ -192,9 +204,12 @@ public class ContactData {
         return company;
     }
 
-    public  String getGroup() {
-        return group;
-    }
+   // public  String getGroup() {
+     //   return group;
+   // }
+
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -216,6 +231,11 @@ public class ContactData {
     public int hashCode() {
         return Objects.hash(id, firstname, middlename, lastname, homePhone, mobilePhone, workPhone, email, email2, email3);
     }
+
+    public Groups getGroups() {
+        return new Groups(groups);
+    }
+
     @Override
     public String toString() {
         return "ContactData{" +
@@ -224,7 +244,7 @@ public class ContactData {
                 ", middlename='" + middlename + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", company='" + company + '\'' +
-                ", group='" + group + '\'' +
+                // ", group='" + group + '\'' +
                 ", homePhone='" + homePhone + '\'' +
                 ", mobilePhone='" + mobilePhone + '\'' +
                 ", allPhones='" + allPhones + '\'' +
@@ -236,4 +256,5 @@ public class ContactData {
                 ", photo='" + photo + '\'' +
                 '}';
     }
+
 }

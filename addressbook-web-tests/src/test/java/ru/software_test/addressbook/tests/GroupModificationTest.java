@@ -29,6 +29,7 @@ public class GroupModificationTest extends TestBase {
         Groups after = app.db().groups();
         assertThat(after, equalTo(before.without(modifyGroup)
                 .withAdded(new GroupData().withId(modifyGroup.getId()).withName("777").withHeader("LOL").withFooter("ASD"))));
+        verifyGroupListUi();
 
     }
 
