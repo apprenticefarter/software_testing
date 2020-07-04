@@ -38,9 +38,7 @@ public class ContactADdToGroup extends TestBase {
 
         app.goTo().homePage();
         Contacts before = app.db().contacts();
-        Set<Groups> beforeGrp = before.stream().map( c -> c.getGroups()).collect(Collectors.toSet());
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        beforeGrp.forEach(System.out::println);
+
 
         Groups groups = app.db().groups();
         ContactData modifyContact = new ContactData();
@@ -69,21 +67,19 @@ public class ContactADdToGroup extends TestBase {
 
             }
         }
-
+        Set<GroupData> beforeAdd = modifyContact.getGroups();
         app.contact().addGroup(modifyContact, modGroup);
 
 
         Contacts after = app.db().contacts();
-        Set<Groups> afterGrp = after.stream().map( c -> c.getGroups()).collect(Collectors.toSet());
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        afterGrp.forEach(System.out::println);
-        //assertThat(modifyContact.getGroups().equals())
+
+        ContactData finalModifyContact = modifyContact;
+        Set<ContactData> aaf = after.stream().filter(c -> c.equals(finalModifyContact)).collect(Collectors.toSet());
+        Set<GroupData> aftreGrp = aaf.iterator().next().getGroups();
         assertThat(app.contact().count(), equalTo(before.size()));
-        assertThat(before.withOut(modifyContact).withAdded(new ContactData().withId(modifyContact.getId())
-                .withFisrtname(modifyContact.getFirstname()).withMiddlename(modifyContact.getMiddlename())
-                .withLastname(modifyContact.getLastname()).withCompany(modifyContact.getCompany())
-                .withPhoto(modifyContact.getPhoto()).inGroup(modGroup)), equalTo(after));
-        verifyContactListUi();
+        beforeAdd.add(modGroup);
+        assertThat(beforeAdd ,equalTo(aftreGrp));
+
     }
 
 
