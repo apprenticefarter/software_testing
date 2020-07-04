@@ -41,17 +41,19 @@ public class ContactDelFromGroup extends TestBase {
         Groups groups = app.db().groups();
         ContactData modifyContact = before.iterator().next();
         GroupData modGroup = new GroupData();
+        Boolean nomatch = true;
         for (ContactData contact : before) {
             if (contact.getGroups().size() > 0) {
                 modifyContact = contact;
                 modGroup = modifyContact.getGroups().iterator().next();
-            } else {
-                modifyContact = before.iterator().next();
-                modGroup = groups.iterator().next();
-                app.contact().addGroup(modifyContact, modGroup);
+                nomatch = false;
             }
         }
-
+        if (nomatch){
+            modifyContact = before.iterator().next();
+            modGroup = groups.iterator().next();
+            app.contact().addGroup(modifyContact, modGroup);
+        }
         Set<GroupData> beforeDel = modifyContact.getGroups();
 
         app.contact().delGroup(modifyContact, modGroup);
@@ -64,15 +66,7 @@ public class ContactDelFromGroup extends TestBase {
 
         beforeDel.remove(modGroup);
         assertThat(beforeDel,equalTo(aftreGrp));
-        /*
-        assertThat(app.contact().count(), equalTo(before.size()));
-        assertThat(before.withOut(modifyContact).withAdded(new ContactData().withId(modifyContact.getId())
-                .withFisrtname(modifyContact.getFirstname()).withMiddlename(modifyContact.getMiddlename())
-                .withLastname(modifyContact.getLastname()).withCompany(modifyContact.getCompany())
-                .withPhoto(modifyContact.getPhoto())), equalTo(after));
-        verifyContactListUi();
-
-         */
+       
     }
 
 
