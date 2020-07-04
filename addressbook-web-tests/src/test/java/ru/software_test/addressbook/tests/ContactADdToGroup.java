@@ -78,6 +78,7 @@ public class ContactADdToGroup extends TestBase {
         Set<GroupData> aftreGrp = aaf.iterator().next().getGroups();
         assertThat(app.contact().count(), equalTo(before.size()));
         beforeAdd.add(modGroup);
+        
         assertThat(beforeAdd ,equalTo(aftreGrp));
 
     }
