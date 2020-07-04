@@ -27,9 +27,6 @@ public class ContactData {
     @Transient
     private  String company;
 
-
-    //@Transient
-    //private String group;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "address_in_groups",joinColumns = @JoinColumn(name = "id")
             ,inverseJoinColumns = @JoinColumn(name = "group_id"))

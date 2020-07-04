@@ -8,7 +8,10 @@ import ru.software_test.addressbook.model.GroupData;
 import ru.software_test.addressbook.model.Groups;
 
 import java.io.File;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -35,24 +38,46 @@ public class ContactADdToGroup extends TestBase {
 
         app.goTo().homePage();
         Contacts before = app.db().contacts();
+        Set<Groups> beforeGrp = before.stream().map( c -> c.getGroups()).collect(Collectors.toSet());
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        beforeGrp.forEach(System.out::println);
+
         Groups groups = app.db().groups();
-        ContactData modifyContact = before.iterator().next();
-        if (modifyContact.getGroups().size() > 0) {
+        ContactData modifyContact = new ContactData();
+        GroupData modGroup = new GroupData();
+        Boolean Nomatch = true;
+        for (ContactData contact : before) {
+            if (contact.getGroups().size() < groups.size()) {
+                modifyContact = contact;
+                Set<GroupData> result = new HashSet<>();
+                result.addAll(groups);
+                result.removeAll(modifyContact.getGroups());
+                modGroup = result.iterator().next();
+                Nomatch = false;
+            }
+        }
+        if (Nomatch) {
+            modGroup = groups.iterator().next();
             app.contact().create(new ContactData().withFisrtname("Joe").withMiddlename("Ivanovich")
                     .withLastname("Trump").withCompany("Missleaders").withPhoto(photo));
             app.goTo().homePage();
             before = app.db().contacts();
+
             Iterator<ContactData> iter = before.iterator();
-            while (iter.hasNext() && modifyContact.getGroups().size() > 0) {
+            while (iter.hasNext() && iter.next().getGroups().size() > 0) {
                 modifyContact = iter.next();
 
             }
-
         }
 
-        GroupData modGroup = groups.iterator().next();
         app.contact().addGroup(modifyContact, modGroup);
+
+
         Contacts after = app.db().contacts();
+        Set<Groups> afterGrp = after.stream().map( c -> c.getGroups()).collect(Collectors.toSet());
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        afterGrp.forEach(System.out::println);
+        //assertThat(modifyContact.getGroups().equals())
         assertThat(app.contact().count(), equalTo(before.size()));
         assertThat(before.withOut(modifyContact).withAdded(new ContactData().withId(modifyContact.getId())
                 .withFisrtname(modifyContact.getFirstname()).withMiddlename(modifyContact.getMiddlename())
