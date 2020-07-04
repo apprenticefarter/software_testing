@@ -66,7 +66,15 @@ public class ContactDelFromGroup extends TestBase {
 
         beforeDel.remove(modGroup);
         assertThat(beforeDel,equalTo(aftreGrp));
-       
+        /*
+        assertThat(app.contact().count(), equalTo(before.size()));
+        assertThat(before.withOut(modifyContact).withAdded(new ContactData().withId(modifyContact.getId())
+                .withFisrtname(modifyContact.getFirstname()).withMiddlename(modifyContact.getMiddlename())
+                .withLastname(modifyContact.getLastname()).withCompany(modifyContact.getCompany())
+                .withPhoto(modifyContact.getPhoto())), equalTo(after));
+        verifyContactListUi();
+
+         */
     }
 
 
