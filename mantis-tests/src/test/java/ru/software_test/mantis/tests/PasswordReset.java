@@ -30,6 +30,7 @@ public class PasswordReset extends TestBase {
         String email = app.db().users().get(app.db().users().size() -1).getEmail();
         String password = "password";
         String newpassword = "password123" ;
+
         List<MailMessage> mailMessages = app.james().waitForMail(user,password,60000);
         String confirmationLink = findConfirmationLink(mailMessages, email);
         app.registration().finish(confirmationLink, newpassword);
