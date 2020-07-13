@@ -19,6 +19,7 @@ public class UserData {
 
 
 
+
     @Column(name = "email")
     private String email;
     public UserData(){
