@@ -109,7 +109,7 @@ public class JamesHelper {
         throw new Error("No mail");
     }
 
-    private List<MailMessage> getAllMail(String user, String password) throws MessagingException {
+    public List<MailMessage> getAllMail(String user, String password) throws MessagingException {
         Folder inbox = openInbox(user, password);
         List<MailMessage> messages = Arrays.asList(inbox.getMessages()).stream().map(m -> toModelMail(m)).collect(Collectors.toList());
         closeFolder(inbox);
@@ -141,5 +141,21 @@ public class JamesHelper {
     private void closeFolder(Folder folder) throws MessagingException {
         folder.close(true);
         store.close();
+    }
+
+    public List<MailMessage> waitForNewMail(Integer count, String user, String password, long timeout) throws MessagingException {
+        long now = System.currentTimeMillis();
+        while (System.currentTimeMillis() < now + timeout) {
+            List<MailMessage> allmail = getAllMail(user, password);
+            if (allmail.size() > count) {
+                return allmail;
+            }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        throw new Error("No mail");
     }
 }
