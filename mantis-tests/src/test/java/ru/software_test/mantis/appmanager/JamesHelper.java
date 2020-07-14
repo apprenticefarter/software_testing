@@ -127,7 +127,13 @@ public class JamesHelper {
             return null;
         }
     }
-
+    public void drainEmail (String user,String password) throws MessagingException {
+        Folder inbox = openInbox(user,password);
+        for (Message message : inbox.getMessages()){
+            message.setFlag(Flags.Flag.DELETED, true);
+        }
+        closeFolder(inbox);
+    }
     private Folder openInbox(String user, String password) throws MessagingException {
         mailserver = app.getProperty("mailserver.host");
 
