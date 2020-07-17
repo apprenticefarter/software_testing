@@ -15,9 +15,13 @@ import java.util.Set;
 
 import static org.testng.Assert.*;
 
-public class RestTests {
+public class RestTests extends TestBase{
+    public RestTests() throws IOException {
+    }
+
     @Test
     public void testCreateIssues() throws IOException {
+        skipIfNotFixed(4);
         Set<Issue> oldIssues = getIssues();
         Issue newIssue = new Issue().withSubject("Test issue").withDescription("new TEST issue");
         int issueId = createIssue(newIssue);
