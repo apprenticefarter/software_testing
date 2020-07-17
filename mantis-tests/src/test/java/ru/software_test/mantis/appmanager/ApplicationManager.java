@@ -23,6 +23,7 @@ public class ApplicationManager {
     private JamesHelper jamesHelper;
     private ResetHelper resetHelper;
     private DbHeleper dbHelper;
+    private SoapHelper soapHelper;
 
     public ApplicationManager(String browser) {
         this.browser = browser;
@@ -58,6 +59,11 @@ public class ApplicationManager {
         if (registrationHelper == null){
         registrationHelper = new RegistrationHelper(this);}
         return registrationHelper;
+    }
+    public SoapHelper soapHelper() {
+        if (soapHelper == null){
+            soapHelper = new SoapHelper(this);}
+        return soapHelper;
     }
     public FtpHelper ftp(){
         if (ftp == null){
