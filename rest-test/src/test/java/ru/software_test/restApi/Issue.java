@@ -7,6 +7,7 @@ public class Issue {
     private String subject;
     private String description;
     private int state;
+    private String state_name;
 
     public int getState() {
         return state;
@@ -60,5 +61,13 @@ public class Issue {
     @Override
     public int hashCode() {
         return Objects.hash(id, subject, description);
+    }
+
+    public String getState_name() {
+        return state_name;
+    }
+
+    public void setState_name(String state_name) {
+        this.state_name = state_name;
     }
 }

@@ -24,14 +24,18 @@ public class TestBase {
     @Test
     public void test() throws IOException {
         System.out.println(isIssueOpen(1));
+        System.out.println(getState(1));
     }
 
     public boolean isIssueOpen(int id) throws IOException {
         Set<Issue> issues = getIssues(id);
-        int issueStatus = issues.iterator().next().getState();
-        return !(issueStatus == 2);
+        String issueStatus = issues.iterator().next().getState_name();
+        return !(issueStatus.equals("Resolved"));
     }
-
+    public  String getState(int id) throws IOException {
+        Set<Issue> issues = getIssues(id);
+        return issues.iterator().next().getState_name();
+    }
 
     public void skipIfNotFixed(int issueId) throws IOException {
         if (isIssueOpen(issueId)) {

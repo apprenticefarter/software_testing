@@ -1,0 +1,10 @@
+ru/software_test/sandbox/Equation.java
+ ru.software_test.sandbox.Equation
+ru/software_test/sandbox/FirstProgram.java
+ ru.software_test.sandbox.FirstProgram
+ru/software_test/sandbox/Point.java
+ ru.software_test.sandbox.Point
+ru/software_test/sandbox/Rectangle.java
+ ru.software_test.sandbox.Rectangle
+ru/software_test/sandbox/Square.java
+ ru.software_test.sandbox.Square
